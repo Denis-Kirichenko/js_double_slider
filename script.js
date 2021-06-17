@@ -10,10 +10,14 @@ sidebar.style.top = `-${(slidesCount - 1) * 100}vh`;
 
 upBtn.addEventListener('click', () => {
   changeSlide('up');
+  clearDelay();
+  autoSlidesChange();
 });
 
 downBtn.addEventListener('click', () => {
   changeSlide('down');
+  clearDelay();
+  autoSlidesChange();
 });
 
 function changeSlide(direction) {
@@ -35,3 +39,16 @@ function changeSlide(direction) {
 
   sidebar.style.transform = `translateY(${activeSlideIndex * height}px)`;
 }
+
+function clearDelay() {
+  clearInterval(slideInterval);
+  clearTimeout(start);
+}
+
+function autoSlidesChange() {
+  start = setTimeout(() => {
+    slideInterval = setInterval(() => changeSlide('up'), 4000);
+  }, 10000);
+}
+
+autoSlidesChange();
